@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="favicon.png">
+<title>ZenrAiqi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="ZenrAiqi: Digital Intelligence Integration for business. AI software, assistants and automations grounded in your own data. Aachen, Germany.">
+<style>
+/* Layout: single column, left-aligned editorial rhythm; hero pairs the promise with a live-looking "grounded answer" card. System fonts only (no external font requests, GDPR-friendly). */
+:root {
+  --bg: #F4F6F9;
+  --surface: #FFFFFF;
+  --ink: #10233F;
+  --muted: #55647A;
+  --line: #D9E1EB;
+  --accent: #E8955A;
+  --accent-ink: #A9561F;
+  --tile: #10233F;
+  --tile-ink: #F6F5F0;
+  --chip: #EEF2F7;
+  --display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --body: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1A2F; --surface: #12264A; --ink: #F2F4F8; --muted: #A7B6CB; --line: #23406B;
+    --accent: #E8955A; --accent-ink: #F2A872; --tile: #26467A; --tile-ink: #F6F5F0; --chip: #1A3159;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1A2F; --surface: #12264A; --ink: #F2F4F8; --muted: #A7B6CB; --line: #23406B;
+  --accent: #E8955A; --accent-ink: #F2A872; --tile: #26467A; --tile-ink: #F6F5F0; --chip: #1A3159;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+p { margin: 0; }
+.ai { color: var(--accent); }
+.eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+
+/* Header */
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 22px; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+nav { display: flex; gap: 22px; flex-wrap: wrap; }
+nav a { text-decoration: none; font-size: 15px; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+@media (max-width: 640px) { nav a:not(.nav-cta) { display: none; } }
+.nav-cta { color: var(--ink) !important; font-weight: 600; }
+
+/* Hero */
+.hero { padding-block: 72px 64px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: clamp(38px, 5.6vw, 64px); font-weight: 700; letter-spacing: -0.02em; margin-top: 14px; }
+.hero .lede { font-size: 20px; color: var(--muted); margin-top: 20px; max-width: 34ch; }
+.actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px; border: 1px solid transparent; cursor: pointer; font-family: var(--body); }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--accent-ink); }
+.btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+.btn-ghost:hover { border-color: var(--ink); }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-block: 48px; gap: 40px; } }
+
+/* Grounded answer card: the signature */
+.answer { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: 0 18px 40px -24px rgba(16,35,63,.35); }
+.answer .tag { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; }
+.q { margin-top: 16px; background: var(--chip); border-radius: 12px 12px 12px 4px; padding: 12px 14px; font-weight: 600; }
+.a { margin-top: 14px; font-size: 15.5px; }
+.a sup { font-family: var(--mono); font-size: 11px; color: var(--accent-ink); font-weight: 700; }
+.sources { margin-top: 16px; display: grid; gap: 8px; }
+.src { display: flex; gap: 10px; align-items: baseline; font-family: var(--mono); font-size: 12.5px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; overflow-wrap: anywhere; }
+.src b { color: var(--accent-ink); }
+.confidence { margin-top: 14px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+
+/* Sections */
+section { padding-block: 72px; border-top: 1px solid var(--line); }
+.head { display: grid; gap: 12px; max-width: 46rem; margin-bottom: 40px; }
+.head h2 { font-size: clamp(28px, 3.6vw, 40px); letter-spacing: -0.01em; }
+.head p { color: var(--muted); font-size: 18px; }
+
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
+.service { padding: 28px; display: grid; gap: 10px; align-content: start; }
+.service:nth-child(odd) { border-right: 1px solid var(--line); }
+.service:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+.service h3 { font-size: 21px; }
+.service p { color: var(--muted); font-size: 16px; }
+.service .for { font-family: var(--mono); font-size: 12.5px; color: var(--accent-ink); }
+@media (max-width: 720px) {
+  .services { grid-template-columns: 1fr; }
+  .service:nth-child(odd) { border-right: 0; }
+  .service:not(:last-child) { border-bottom: 1px solid var(--line); }
+}
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; gap: 8px; align-content: start; padding-top: 18px; border-top: 2px solid var(--ink); }
+.steps li::before { content: "Step " counter(s); font-family: var(--mono); font-size: 12.5px; color: var(--accent-ink); }
+.steps h3 { font-size: 19px; }
+.steps p { color: var(--muted); font-size: 15.5px; }
+@media (max-width: 860px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+.principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.principles div { display: grid; gap: 8px; align-content: start; }
+.principles h3 { font-size: 19px; display: flex; align-items: center; gap: 10px; }
+.principles p { color: var(--muted); font-size: 16px; }
+@media (max-width: 760px) { .principles { grid-template-columns: 1fr; gap: 24px; } }
+
+.about { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; }
+.about > * { min-width: 0; }
+.about p + p { margin-top: 14px; }
+.about .body p { color: var(--muted); }
+.about .body strong { color: var(--ink); }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; gap: 20px; } }
+
+.contact { background: var(--tile); color: var(--tile-ink); border-radius: 20px; padding: 44px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center; }
+.contact > * { min-width: 0; }
+.contact h2 { font-size: clamp(26px, 3.4vw, 36px); }
+.contact p { opacity: .82; margin-top: 12px; }
+.mailbox { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+.mailbox .addr { font-family: var(--mono); font-size: 17px; user-select: all; overflow-wrap: anywhere; }
+.mailbox .row { display: flex; gap: 10px; flex-wrap: wrap; }
+.mailbox .btn { background: var(--accent); color: #10233F; padding: 10px 16px; font-size: 15px; }
+.mailbox .btn.alt { background: transparent; color: var(--tile-ink); border-color: rgba(255,255,255,.3); }
+.copied { font-size: 13px; opacity: .8; min-height: 1.2em; }
+@media (max-width: 760px) { .contact { grid-template-columns: 1fr; padding: 28px; } }
+
+footer { padding-block: 40px 56px; border-top: 1px solid var(--line); margin-top: 72px; color: var(--muted); font-size: 14px; }
+.foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.legal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
+.legal > * { min-width: 0; }
+.legal h3 { font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+.legal p + p { margin-top: 8px; }
+@media (max-width: 720px) { .legal { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) {
+  .answer { animation: rise .6s ease-out both; }
+  @keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="22" fill="var(--tile)"/>
+      <path d="M27 30 H66 V38 L39 68 H67 V76 H26 V68 L53 38 H27 Z" fill="var(--tile-ink)"/>
+      <circle cx="75" cy="33" r="6.5" fill="#E8955A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="ZenrAiqi home"><svg aria-hidden="true"><use href="#mark"/></svg><span>Zenr<span class="ai">Ai</span>qi</span></a>
+    <nav aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#process">How we work</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Digital Intelligence Integration for business</p>
+      <h1>AI that answers from your data, and shows where the answer came from.</h1>
+      <p class="lede">AI software, assistants and automations grounded in your own documents, data and processes.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#contact">Talk about your project</a>
+        <a class="btn btn-ghost" href="#services">See what we build</a>
+      </div>
+    </div>
+
+    <figure class="answer" aria-label="Example of a grounded answer">
+      <div class="tag"><span>Example assistant</span><span>sample data</span></div>
+      <p class="q">Which open orders are at risk of shipping late this week?</p>
+      <p class="a">Three orders are at risk. Two wait on a delayed component delivery<sup>[1]</sup>, and one is stuck in quality inspection for more than 48 hours<sup>[2]</sup>. The usual inspection time is under 24 hours<sup>[3]</sup>.</p>
+      <div class="sources">
+        <div class="src"><b>[1]</b><span>purchase_orders.xlsx · rows 112–113</span></div>
+        <div class="src"><b>[2]</b><span>erp_events · order 4471 · status log</span></div>
+        <div class="src"><b>[3]</b><span>quality_handbook.pdf · p. 7</span></div>
+      </div>
+      <p class="confidence"><span class="dot"></span>If the data does not contain the answer, the assistant says so instead of guessing.</p>
+    </figure>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Services</p>
+        <h2>What we build</h2>
+        <p>From a single assistant to a full product. Each project starts with your real data and a clear business question.</p>
+      </div>
+      <div class="services">
+        <div class="service">
+          <p class="for">For teams drowning in documents</p>
+          <h3>AI assistants on your data</h3>
+          <p>Ask questions in plain language and get answers from your manuals, contracts, reports and databases, with the source for every claim.</p>
+        </div>
+        <div class="service">
+          <p class="for">For operations and management</p>
+          <h3>Process and operations insights</h3>
+          <p>Use the event data already in your ERP and other systems to see where orders wait, where work loops back, and what slows delivery.</p>
+        </div>
+        <div class="service">
+          <p class="for">For repetitive work</p>
+          <h3>Automations</h3>
+          <p>Hand routine steps such as sorting requests, extracting data from documents and drafting replies to reliable, reviewable automations.</p>
+        </div>
+        <div class="service">
+          <p class="for">From idea to launch</p>
+          <h3>Custom software and product development</h3>
+          <p>Web apps, internal tools and integrations built around AI and connected to the systems your team already uses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How we work</p>
+        <h2>Small steps, visible results</h2>
+        <p>You see something working on your own data early, before committing to a larger build.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Discovery call</h3><p>A free 30-minute call about your goal, your data and what a good result looks like.</p></li>
+        <li><h3>Prototype</h3><p>A working prototype on a sample of your data, so you can judge the answers yourself.</p></li>
+        <li><h3>Build and integrate</h3><p>The solution is hardened, tested and connected to your tools and access rules.</p></li>
+        <li><h3>Support and improve</h3><p>We measure answer quality over time and improve it as your data and needs change.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Principles</p>
+        <h2>How our AI behaves</h2>
+      </div>
+      <div class="principles">
+        <div><h3><span class="dot"></span>Grounded</h3><p>Answers come from your sources and cite them. When the data is missing, the system says it does not know.</p></div>
+        <div><h3><span class="dot"></span>Private</h3><p>Your data stays yours. Projects follow the GDPR, and hosting in the EU is available.</p></div>
+        <div><h3><span class="dot"></span>Practical</h3><p>We build for the way your business actually works, and measure success by time saved and better decisions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="head" style="margin-bottom:0">
+        <p class="eyebrow">About</p>
+        <h2>Founded in Aachen</h2>
+      </div>
+      <div class="body">
+        <p><strong>ZenrAiqi</strong> is founded by <strong>Rahul Gupta</strong>, who studied Data Analytics and Decision Science at RWTH Aachen University.</p>
+        <p>His master's research focused on AI agents for process intelligence and decision support: systems that combine company data, process analysis and document search to give answers that can be checked.</p>
+        <p>The name joins <em>Zen</em> (clarity), <em>Rai</em> (Japanese for thunder, energy) and <em>qi</em> (flow), with <span class="ai">Ai</span> at its centre.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="contact" style="padding-block:24px 0">
+    <div class="contact">
+      <div>
+        <h2>Have a question your data should answer?</h2>
+        <p>Write a few lines about your business and the problem. You get a reply within two working days.</p>
+      </div>
+      <div class="mailbox">
+        <span class="addr" id="addr">rahul043gupta@gmail.com</span>
+        <div class="row">
+          <button class="btn" id="copy" type="button">Copy email address</button>
+          <a class="btn alt" href="https://www.linkedin.com/company/zenraiqi" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <span class="copied" id="copied" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span>© 2026 ZenrAiqi · Aachen, Germany</span>
+      <span><a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a></span>
+    </div>
+    <div class="legal">
+      <div id="impressum">
+        <h3>Impressum</h3>
+        <p>Angaben gemäß § 5 DDG</p>
+        <p>Rahul Gupta<br>[Straße und Hausnummer]<br>[PLZ] Aachen<br>Deutschland</p>
+        <p>E-Mail: rahul043gupta@gmail.com</p>
+        <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV: Rahul Gupta, Anschrift wie oben.</p>
+      </div>
+      <div id="datenschutz">
+        <h3>Datenschutz</h3>
+        <p>Diese Website verwendet keine Cookies, kein Tracking und lädt keine externen Schriftarten.</p>
+        <p>Beim Aufruf verarbeitet der Hosting-Anbieter GitHub Inc. (GitHub Pages) technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt) in Server-Logfiles (Art. 6 Abs. 1 lit. f DSGVO).</p>
+        <p>Wenn Sie uns per E-Mail kontaktieren, verwenden wir Ihre Angaben nur zur Bearbeitung Ihrer Anfrage. Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Beschwerde bei einer Aufsichtsbehörde.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var out = document.getElementById('copied');
+  var addr = document.getElementById('addr');
+  function selectAddr() {
+    var r = document.createRange(); r.selectNodeContents(addr);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    var text = addr.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { out.textContent = 'Copied: ' + text; },
+        function () { selectAddr(); out.textContent = 'Press Ctrl+C to copy the selected address.'; });
+    } else { selectAddr(); out.textContent = 'Press Ctrl+C to copy the selected address.'; }
+  });
+})();
+</script>
+</body>
+</html>
